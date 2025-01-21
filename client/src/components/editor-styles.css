@@ -30,13 +30,11 @@
 } */
 
 .block {
-    /* padding: 5px; */
     border-radius: 5px;
-    transition: all 0.1s ease;
 }
 
 .block.active {
-    border: 1.5px solid #007bff;
+    border: 1.75px solid #007bff;
     box-sizing: border-box;
     /* background-color: #e6f1ff; */
 }
@@ -44,6 +42,10 @@
 .block-content {
     font-size: 16px;
     line-height: 1.5;
+}
+
+.block-content > input[type=text]{
+    max-width: fit-content;
 }
 
 .block-img {

@@ -6,10 +6,10 @@ const fontFamilies = [
     'Times New Roman, serif',
     'Courier New, monospace',
     'Georgia, serif',
-    'Verdana, sans-serif',
-    'Tahoma, sans-serif',
-    'Trebuchet MS, sans-serif',
-    'Impact, sans-serif',
+    `Verdana, 'sans-serif'`,
+    `Tahoma, 'sans-serif'`,
+    `Trebuchet MS, sans-serif`,
+    `Brush Script MT, cursive`
   ];
   
   export default function EditorPane ({ data, setData, selectedBlockData, setSelectedBlock }) {

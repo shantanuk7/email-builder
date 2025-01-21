@@ -140,6 +140,9 @@ function Editor() {
                             fontSize: block.style?.fontSize ? `${block.style.fontSize}px` : '16px',
                             color: block.style?.color || 'black',
                             backgroundColor: block.style?.backgroundColor || 'white',
+                            padding:block.style?.padding || '0px',
+                            margin:block.style?.margin || '0px',
+                            fontFamily:block.style?.fontFamily || 'Arial',
                             border: 'none', // Optional: To make it blend into the design
                             outline: 'none', // Optional: To remove focus outline
                             width: '100%', // Optional: Full width of the block
