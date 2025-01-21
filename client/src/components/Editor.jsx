@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './editor-styles.css';
 import EditorPane from './EditorPane';
-
+import InsertImage from './InsertImage';
 function Editor() {
   const location = useLocation();
   const template = location.state?.template;
@@ -153,7 +153,8 @@ function Editor() {
 
                 
                 ) : (
-                  <img src={block.rawContent} alt="Block" className="block-img" />
+                    block.rawContent !== '' ? <img src={block.rawContent} alt="Block" className="block-img" /> : <InsertImage h="10%" w="10%"/>
+                  
                 )}
               </div>
             ))}

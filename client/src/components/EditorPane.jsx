@@ -48,9 +48,12 @@ const fontFamilies = [
   
     return (
       <div className="editor-pane-content">
-        <h3>Edit Styles: {selectedBlockData.title}</h3>
-  
-        {/* Font Size */}
+        
+        {
+        selectedBlockData.type == 'text' 
+        
+        ? <div>
+
         <div className="editor-field">
           <label htmlFor="font-size">Font Size (px):</label>
           <input
@@ -58,17 +61,16 @@ const fontFamilies = [
             id="font-size"
             value={selectedBlockData.style?.fontSize || 16}
             onChange={(e) => handleStyleChange('fontSize', parseInt(e.target.value, 10))}
-          />
+            />
         </div>
   
-        {/* Font Family */}
         <div className="editor-field">
           <label htmlFor="font-family">Font Family:</label>
           <select
             id="font-family"
             value={selectedBlockData.style?.fontFamily || fontFamilies[0]}
             onChange={(e) => handleStyleChange('fontFamily', e.target.value)}
-          >
+            >
             {fontFamilies.map((font) => (
               <option key={font} value={font}>
                 {font.split(',')[0]}
@@ -77,7 +79,6 @@ const fontFamilies = [
           </select>
         </div>
   
-        {/* Text Color */}
         <div className="editor-field">
           <label htmlFor="color">Text Color:</label>
           <input
@@ -85,10 +86,10 @@ const fontFamilies = [
             id="color"
             value={selectedBlockData.style?.color || '#000000'}
             onChange={(e) => handleStyleChange('color', e.target.value)}
-          />
+            />
         </div>
   
-        {/* Background Color */}
+        
         <div className="editor-field">
           <label htmlFor="background-color">Background Color:</label>
           <input
@@ -96,10 +97,10 @@ const fontFamilies = [
             id="background-color"
             value={selectedBlockData.style?.backgroundColor || '#ffffff'}
             onChange={(e) => handleStyleChange('backgroundColor', e.target.value)}
-          />
+            />
         </div>
   
-        {/* Padding */}
+       
         <div className="editor-field">
           <label htmlFor="padding">Padding (px):</label>
           <input
@@ -107,10 +108,10 @@ const fontFamilies = [
             id="padding"
             value={selectedBlockData.style?.padding || 0}
             onChange={(e) => handleStyleChange('padding', parseInt(e.target.value, 10))}
-          />
+            />
         </div>
   
-        {/* Margin */}
+        
         <div className="editor-field">
           <label htmlFor="margin">Margin (px):</label>
           <input
@@ -118,9 +119,10 @@ const fontFamilies = [
             id="margin"
             value={selectedBlockData.style?.margin || 0}
             onChange={(e) => handleStyleChange('margin', parseInt(e.target.value, 10))}
-          />
-        </div>
+            />
+        </div></div> : <div>Image</div>
+        
+        }
       </div>
     );
-  };
-  
+};

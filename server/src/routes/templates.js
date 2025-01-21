@@ -14,25 +14,37 @@ const templates = [
         blocks: [
           {
             id: 'block-1',
-            type: 'text',
-            title: 'Block 1',
-            rawContent: 'Editable Text Here',
+            type: 'image',
+            title: 'Logo Image',
+            rawContent: '',
             style: {
-              fontSize: 16,
               color: 'black',
               backgroundColor: 'white',
               padding: '10px',
               margin: '5px',
-              fontFamily:'Arial'
             },
           },
           {
             id: 'block-2',
             type: 'text',
-            title: 'Block 2',
+            title: 'Heading',
             rawContent: 'Another Block of Text',
             style: {
               fontSize: 18,
+              color: 'blue',
+              backgroundColor: 'lightgray',
+              padding: '15px',
+              margin: '10px',
+              fontFamily:'Arial'
+            },
+          },
+          {
+            id: 'block-3',
+            type: 'text',
+            title: 'Paragraph',
+            rawContent: 'Write the description here.',
+            style: {
+              fontSize: 14,
               color: 'blue',
               backgroundColor: 'lightgray',
               padding: '15px',
