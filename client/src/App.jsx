@@ -8,7 +8,7 @@ function App() {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
 
   const setTemplateForEditor = async (template)=>{
-    // console.log(template);
+    console.log(template);
     await setSelectedTemplate(template);
     if (selectedTemplate != null) {
       console.log(selectedTemplate);

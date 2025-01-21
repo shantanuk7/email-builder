@@ -1,118 +1,126 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './editor-pane-styles.css';
 
-export default function EditorPane({ data, setData, selectedBlockData, setSelectedBlock }) {
-//   const [content, setContent] = useState(selectedBlockData?.rawContent || '');
-  const [fontSize, setFontSize] = useState(selectedBlockData?.style?.fontSize || '16px');
-  const [fontColor, setFontColor] = useState(selectedBlockData?.style?.color || '#000');
-  const [bgColor, setBgColor] = useState(selectedBlockData?.style?.backgroundColor || 'transparent');
-
-  useEffect(() => {
-    if (selectedBlockData) {
-    //   setContent(selectedBlockData.rawContent);
-      setFontSize(selectedBlockData.style?.fontSize || '16px');
-      setFontColor(selectedBlockData.style?.color || '#000');
-      setBgColor(selectedBlockData.style?.backgroundColor || 'transparent');
+const fontFamilies = [
+    'Arial, sans-serif',
+    'Times New Roman, serif',
+    'Courier New, monospace',
+    'Georgia, serif',
+    'Verdana, sans-serif',
+    'Tahoma, sans-serif',
+    'Trebuchet MS, sans-serif',
+    'Impact, sans-serif',
+  ];
+  
+  export default function EditorPane ({ data, setData, selectedBlockData, setSelectedBlock }) {
+    if (!selectedBlockData) {
+      return <div className="editor-pane-placeholder">Select a block to edit its styles.</div>;
     }
-  }, [selectedBlockData]);
-
-//   const handleContentChange = (newContent) => {
-//     setContent(newContent);
-//     setData((prev) => ({
-//       ...prev,
-//       rows: prev.rows.map((row) => ({
-//         ...row,
-//         blocks: row.blocks.map((block) =>
-//           block.id === selectedBlockData.id
-//             ? { ...block, rawContent: newContent }
-//             : block
-//         ),
-//       })),
-//     }));
-//     setSelectedBlock((prev) => ({
-//       ...prev,
-//       rawContent: newContent,
-//     }));
-//   };
-
-  const handleStyleChange = (property, value) => {
-    setData((prev) => ({
-      ...prev,
-      rows: prev.rows.map((row) => ({
-        ...row,
-        blocks: row.blocks.map((block) =>
-          block.id === selectedBlockData.id
-            ? {
-                ...block,
-                style: {
-                  ...block.style,
-                  [property]: value,
-                },
-              }
-            : block
-        ),
-      })),
-    }));
-    setSelectedBlock((prev) => ({
-      ...prev,
-      style: {
-        ...prev.style,
-        [property]: value,
-      },
-    }));
-  };
-
-  return (
-    <div className="editor-pane-container">
-      {selectedBlockData && (
-        <div>
-          <h2>{selectedBlockData.id}</h2>
-          <h3>Type: {selectedBlockData.type}</h3>
-          <h3>Font size: {selectedBlockData.style?.fontSize}</h3>
-        </div>
-      )}
-
-      {/* Editable Text Box */}
-      {/* <div
-        className="editable-text"
-        contentEditable
-        suppressContentEditableWarning
-        onInput={(e) => handleContentChange(e.target.innerText)}
-      >
-        {content}
-      </div> */}
-
-      <div className="style-controls">
-        <label>Font Size</label>
-        <input
+  
+    const handleStyleChange = (key, value) => {
+      setData((prev) => ({
+        ...prev,
+        rows: prev.rows.map((row) => ({
+          ...row,
+          blocks: row.blocks.map((block) =>
+            block.id === selectedBlockData.id
+              ? {
+                  ...block,
+                  style: {
+                    ...block.style,
+                    [key]: value,
+                  },
+                }
+              : block
+          ),
+        })),
+      }));
+  
+      // Update the selected block data for immediate feedback in the pane
+      setSelectedBlock((prev) => ({
+        ...prev,
+        style: {
+          ...prev.style,
+          [key]: value,
+        },
+      }));
+    };
+  
+    return (
+      <div className="editor-pane-content">
+        <h3>Edit Styles: {selectedBlockData.title}</h3>
+  
+        {/* Font Size */}
+        <div className="editor-field">
+          <label htmlFor="font-size">Font Size (px):</label>
+          <input
             type="number"
-            value={fontSize}
-            onChange={(e) => {
-                const newSize = `${e.target.value}`; // Add "px" here
-                setFontSize(newSize);
-                handleStyleChange('fontSize', newSize);
-            }}
-            />
-
-        <label>Font Color</label>
-        <input
-          type="color"
-          value={fontColor}
-          onChange={(e) => {
-              handleStyleChange('color', e.target.value);
-            setFontColor(e.target.value);
-          }}
-        />
-        <label>Background Color</label>
-        <input
-          type="color"
-          value={bgColor}
-          onChange={(e) => {
-            handleStyleChange('backgroundColor', e.target.value);
-            setBgColor(e.target.value);
-          }}
-        />
+            id="font-size"
+            value={selectedBlockData.style?.fontSize || 16}
+            onChange={(e) => handleStyleChange('fontSize', parseInt(e.target.value, 10))}
+          />
+        </div>
+  
+        {/* Font Family */}
+        <div className="editor-field">
+          <label htmlFor="font-family">Font Family:</label>
+          <select
+            id="font-family"
+            value={selectedBlockData.style?.fontFamily || fontFamilies[0]}
+            onChange={(e) => handleStyleChange('fontFamily', e.target.value)}
+          >
+            {fontFamilies.map((font) => (
+              <option key={font} value={font}>
+                {font.split(',')[0]}
+              </option>
+            ))}
+          </select>
+        </div>
+  
+        {/* Text Color */}
+        <div className="editor-field">
+          <label htmlFor="color">Text Color:</label>
+          <input
+            type="color"
+            id="color"
+            value={selectedBlockData.style?.color || '#000000'}
+            onChange={(e) => handleStyleChange('color', e.target.value)}
+          />
+        </div>
+  
+        {/* Background Color */}
+        <div className="editor-field">
+          <label htmlFor="background-color">Background Color:</label>
+          <input
+            type="color"
+            id="background-color"
+            value={selectedBlockData.style?.backgroundColor || '#ffffff'}
+            onChange={(e) => handleStyleChange('backgroundColor', e.target.value)}
+          />
+        </div>
+  
+        {/* Padding */}
+        <div className="editor-field">
+          <label htmlFor="padding">Padding (px):</label>
+          <input
+            type="number"
+            id="padding"
+            value={selectedBlockData.style?.padding || 0}
+            onChange={(e) => handleStyleChange('padding', parseInt(e.target.value, 10))}
+          />
+        </div>
+  
+        {/* Margin */}
+        <div className="editor-field">
+          <label htmlFor="margin">Margin (px):</label>
+          <input
+            type="number"
+            id="margin"
+            value={selectedBlockData.style?.margin || 0}
+            onChange={(e) => handleStyleChange('margin', parseInt(e.target.value, 10))}
+          />
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  };
+  

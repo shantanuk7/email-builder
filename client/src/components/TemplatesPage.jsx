@@ -8,8 +8,12 @@ function TemplatesPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("Getting templates..");
+    
     axios.get('http://localhost:3000/api/templates/getTemplates')
       .then(res => setTemplates(res.data))
+      .then(console.log(templates)
+      )
       .catch(err => console.error(err));
   }, []);
 

@@ -6,25 +6,38 @@ const router = express.Router();
 
 const templates = [
   {
-    id: "template-1",
-    name: "Simple Template",
+    id: 'template-1',
+    name:'Starter template',
     rows: [
       {
-        id: "row-1",
+        id: 'row-1',
         blocks: [
           {
-            id: 'block1',
+            id: 'block-1',
             type: 'text',
-            title: 'Heading',
-            htmlContent: '<p>Your text here</p>',
-            rawContent: 'Your text here', // Stores raw content
+            title: 'Block 1',
+            rawContent: 'Editable Text Here',
             style: {
-              fontSize: '16px', // Default font size
-              color: '#000', // Default font color
-              backgroundColor: 'transparent', // Default background color
-              fontWeight: 'normal', // Default font weight
-              fontStyle: 'normal', // Default font style
-              textDecoration: 'none', // Default text decoration (none for no underline)
+              fontSize: 16,
+              color: 'black',
+              backgroundColor: 'white',
+              padding: '10px',
+              margin: '5px',
+              fontFamily:'Arial'
+            },
+          },
+          {
+            id: 'block-2',
+            type: 'text',
+            title: 'Block 2',
+            rawContent: 'Another Block of Text',
+            style: {
+              fontSize: 18,
+              color: 'blue',
+              backgroundColor: 'lightgray',
+              padding: '15px',
+              margin: '10px',
+              fontFamily:'Arial'
             },
           },
         ],
@@ -32,6 +45,7 @@ const templates = [
     ],
   },
 ];
+
 
 router.get('/getTemplates', (req, res) => {
   res.json(templates);

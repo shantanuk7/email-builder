@@ -5,9 +5,9 @@
     box-sizing: border-box;
 }
 
-body {
+/* body {
     font-family: Arial, sans-serif;
-}
+} */
 
 .container {
     display: flex;
@@ -19,25 +19,25 @@ body {
 .editor-pane {
     flex: 1;
     background-color: #fff;
-    padding: 20px;
+    padding:5px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
 }
 
-.row {
+/* .row {
     margin-bottom: 20px;
-}
+} */
 
 .block {
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    transition: all 0.2s ease;
+    /* padding: 5px; */
+    border-radius: 5px;
+    transition: all 0.1s ease;
 }
 
 .block.active {
-    border: 2px solid #007bff;
+    border: 1.5px solid #007bff;
+    box-sizing: border-box;
     /* background-color: #e6f1ff; */
 }
 

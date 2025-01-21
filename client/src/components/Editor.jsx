@@ -56,6 +56,8 @@ function Editor() {
   const camelToKebab = (str) => str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 
   const generateHTMLContent = (data) => {
+    const camelToKebab = (str) => str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+  
     return `
       <!DOCTYPE html>
       <html lang="en">
@@ -64,32 +66,37 @@ function Editor() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Email Template</title>
       </head>
-      <body>
+      <body style="margin:0; padding:0">
         ${data.rows
           .map((row) =>
             `<div class="row">
               ${row.blocks
-                .map(
-                  (block) =>
-                    block.type === 'text'
-                      ? `<p style="${
-                          block.style
-                            ? Object.entries(block.style)
-                                .map(
-                                  ([key, value]) => `${camelToKebab(key)}: ${value}`
-                                )
-                                .join('; ')
-                            : ''
-                        }">${block.rawContent || " "}</p>`
-                      : `<img src="${block.rawContent}" style="${
-                          block.style
-                            ? Object.entries(block.style)
-                                .map(
-                                  ([key, value]) => `${camelToKebab(key)}: ${value}`
-                                )
-                                .join('; ')
-                            : ''
-                        }" />`
+                .map((block) =>
+                  block.type === 'text'
+                    ? `<p style="${
+                        block.style
+                          ? Object.entries(block.style)
+                              .map(([key, value]) => {
+                                const kebabKey = camelToKebab(key);
+                                const formattedValue =
+                                  typeof value === 'number' ? `${value}px` : value;
+                                return `${kebabKey}: ${formattedValue}`;
+                              })
+                              .join('; ')
+                          : ''
+                      }">${block.rawContent || ' '}</p>`
+                    : `<img src="${block.rawContent}" style="${
+                        block.style
+                          ? Object.entries(block.style)
+                              .map(([key, value]) => {
+                                const kebabKey = camelToKebab(key);
+                                const formattedValue =
+                                  typeof value === 'number' ? `${value}px` : value;
+                                return `${kebabKey}: ${formattedValue}`;
+                              })
+                              .join('; ')
+                          : ''
+                      }" />`
                 )
                 .join('')}
             </div>`
@@ -98,6 +105,8 @@ function Editor() {
       </body>
       </html>`;
   };
+  
+  
   
   
 
