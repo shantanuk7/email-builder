@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .header {
+            text-align: center;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 0;
+            border-radius: 5px 5px 0 0;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>{{title}}</h1>
+        </div>
+        <p>{{content}}</p>
+        <img src="{{imageUrl}}" alt="Uploaded Image" style="max-width: 100%; height: auto;" />
+        <div class="footer">
+            <p>Powered by Your Email Builder</p>
+        </div>
+    </div>
+</body>
+</html>
