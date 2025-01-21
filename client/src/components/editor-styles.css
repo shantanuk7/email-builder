@@ -38,7 +38,7 @@ body {
 
 .block.active {
     border: 2px solid #007bff;
-    background-color: #e6f1ff;
+    /* background-color: #e6f1ff; */
 }
 
 .block-content {

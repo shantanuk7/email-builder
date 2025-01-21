@@ -38,6 +38,23 @@ function Editor() {
     link.click();
   };
 
+  const handleBlockChange = (blockId, newContent) => {
+    setData((prev) => ({
+      ...prev,
+      rows: prev.rows.map((row) => ({
+        ...row,
+        blocks: row.blocks.map((block) =>
+          block.id === blockId
+            ? { ...block, rawContent: newContent }
+            : block
+        ),
+      })),
+    }));
+  };
+  
+
+  const camelToKebab = (str) => str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+
   const generateHTMLContent = (data) => {
     return `
       <!DOCTYPE html>
@@ -55,8 +72,24 @@ function Editor() {
                 .map(
                   (block) =>
                     block.type === 'text'
-                      ? `<p style="${block.style || ''}">${block.rawContent || " "}</p>`
-                      : `<img src="${block.rawContent}" style="${block.style || ''}" />`
+                      ? `<p style="${
+                          block.style
+                            ? Object.entries(block.style)
+                                .map(
+                                  ([key, value]) => `${camelToKebab(key)}: ${value}`
+                                )
+                                .join('; ')
+                            : ''
+                        }">${block.rawContent || " "}</p>`
+                      : `<img src="${block.rawContent}" style="${
+                          block.style
+                            ? Object.entries(block.style)
+                                .map(
+                                  ([key, value]) => `${camelToKebab(key)}: ${value}`
+                                )
+                                .join('; ')
+                            : ''
+                        }" />`
                 )
                 .join('')}
             </div>`
@@ -65,8 +98,8 @@ function Editor() {
       </body>
       </html>`;
   };
-
-  console.log(data);
+  
+  
 
   return (
     <div className="container">
@@ -80,12 +113,35 @@ function Editor() {
                 onClick={() => handleBlockClick(block.id)}
               >
                 {block.type === 'text' ? (
-                  <div
-                    className="block-content"
-                    dangerouslySetInnerHTML={{ __html: block.rawContent || '' }}
-                  />
+                    <div
+                        className="block-content"
+                        style={{
+                            fontSize: block.style?.fontSize ? `${block.style.fontSize}px` : '16px',
+                            color: block.style?.color || 'black',
+                            backgroundColor: block.style?.backgroundColor || 'white',
+                        }}
+                        >
+                        <input
+                            type="text"
+                            name="text"
+                            id={block.id}
+                            value={block.rawContent}
+                            onChange={(e) => handleBlockChange(block.id, e.target.value)}
+                            style={{
+                            fontSize: block.style?.fontSize ? `${block.style.fontSize}px` : '16px',
+                            color: block.style?.color || 'black',
+                            backgroundColor: block.style?.backgroundColor || 'white',
+                            border: 'none', // Optional: To make it blend into the design
+                            outline: 'none', // Optional: To remove focus outline
+                            width: '100%', // Optional: Full width of the block
+                            }}
+                        />
+                        </div>
+
+
+                
                 ) : (
-                  <img src={block.content} alt="Block" className="block-img" />
+                  <img src={block.rawContent} alt="Block" className="block-img" />
                 )}
               </div>
             ))}
@@ -97,10 +153,10 @@ function Editor() {
         <div>
             <h3>{selectedBlockTitle === null ? 'Editor Pane' : selectedBlockTitle}</h3>
             <EditorPane
-            data={data}
-            setData={setData}
-            selectedBlockData={selectedBlockData}
-            setSelectedBlock={setSelectedBlock} // pass this to update the selected block data
+              data={data}
+              setData={setData}
+              selectedBlockData={selectedBlockData}
+              setSelectedBlock={setSelectedBlock}
             />
         </div>
         <button onClick={handleDownload} className="download-btn">

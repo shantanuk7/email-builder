@@ -1,0 +1,28 @@
+.editor-pane-container {
+    padding: 15px;
+  }
+  
+  .style-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .style-controls label {
+    font-weight: bold;
+  }
+  
+  .style-controls input[type="number"],
+  .style-controls input[type="color"] {
+    width: 100px;
+  }
+  
+  .editable-text {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 50px;
+    white-space: pre-wrap; /* Ensures the text wraps properly */
+    outline: none;
+    font-family: Arial, sans-serif;
+  }
+  
