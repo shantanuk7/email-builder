@@ -9,7 +9,7 @@ export default function InsertImage({ h, w, handleBlockChange, blockId }) {
       try {
         const formData = new FormData();
         formData.append('image', e.target.files[0]);
-        const serverFilePath = await axios.post("http://localhost:3000/api/images/uploadImage", formData)
+        const serverFilePath = await axios.post(`${process.env.SERVER_URI}/api/images/uploadImage`, formData)
         console.log(serverFilePath);
         handleBlockChange(blockId, serverFilePath.data.imageUrl);
         
