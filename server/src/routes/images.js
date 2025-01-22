@@ -19,13 +19,27 @@ const upload = multer({
     },
 });
 
-// Handle image upload
+// // Handle image upload
+
 router.post('/uploadImage', upload.single('image'), (req, res) => {
+    console.log("Got img upload request");
+
     if (!req.file) {
         return res.status(400).json({ message: 'No file uploaded' });
     }
     const filePath = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    console.log(filePath);
+    
     res.json({ imageUrl: filePath });
 });
+
+// Handle image upload
+// router.post('/uploadImage', upload.single('image'), (req, res) => {
+//     const filePath = `http://localhost:3000/uploads/${req.file.filename}`;
+//     console.log(filePath);
+    
+//     res.json({ imageUrl: filePath });
+// });
+
 
 module.exports = router;

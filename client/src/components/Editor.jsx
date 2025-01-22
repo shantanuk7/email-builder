@@ -53,7 +53,6 @@ function Editor() {
   };
   
 
-  const camelToKebab = (str) => str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 
   const generateHTMLContent = (data) => {
     const camelToKebab = (str) => str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
@@ -65,8 +64,16 @@ function Editor() {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Email Template</title>
+        <style>
+        * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+          }
+
+        </style>
       </head>
-      <body style="margin:0; padding:0">
+      <body>
         ${data.rows
           .map((row) =>
             `<div class="row">
@@ -122,15 +129,8 @@ function Editor() {
                 onClick={() => handleBlockClick(block.id)}
               >
                 {block.type === 'text' ? (
-                    <div
-                        className="block-content"
-                        style={{
-                            fontSize: block.style?.fontSize ? `${block.style.fontSize}px` : '16px',
-                            color: block.style?.color || 'black',
-                            backgroundColor: block.style?.backgroundColor || 'white',
-                        }}
-                        >
                         <input
+                        className='block-content'
                             type="text"
                             name="text"
                             id={block.id}
@@ -148,12 +148,9 @@ function Editor() {
                             width: '100%', // Optional: Full width of the block
                             }}
                         />
-                        </div>
-
-
                 
                 ) : (
-                    block.rawContent !== '' ? <img src={block.rawContent} alt="Block" className="block-img" /> : <InsertImage h="10%" w="10%"/>
+                    block.rawContent !== '' ? <img src={block.rawContent} alt="Block" className="block-img" /> : <InsertImage h="3rem" w="3rem" handleBlockChange={handleBlockChange} blockId={block.id}/>
                   
                 )}
               </div>

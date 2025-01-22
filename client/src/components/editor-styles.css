@@ -19,7 +19,7 @@
 .editor-pane {
     flex:1;
     background-color: #fff;
-    padding:5px;
+    /* padding:5px; */
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
@@ -45,7 +45,7 @@
 }
 
 .block-content > input[type=text]{
-    max-width: fit-content;
+    width:max-content;
 }
 
 .block-img {
