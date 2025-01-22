@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './templates-page.css';
 import { useNavigate } from 'react-router-dom';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 
-dotenv.config();
+// dotenv.config();
 
 const generateHTMLContent = (data, selectedFontFamily = "Arial") => {
   const fontCDNs = {
@@ -66,7 +66,7 @@ function TemplatesPage() {
   useEffect(() => {
     console.log("Getting templates..");
     
-    axios.get(`${process.env.SERVER_URI}/api/templates/getTemplates`)
+    axios.get(`${import.meta.env.VITE_API_KEY}/api/templates/getTemplates`)
       .then(res => setTemplates(res.data))
       .catch(err => console.error(err));
   }, []);
