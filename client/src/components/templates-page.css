@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  .container {
+    background-color: #FFFAEC;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  
+  header {
+    display: block;
+    width: 100%;
+    height: 6rem;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #F5ECD5;
+  }
+  
+  header h1 {
+    padding: 1rem;
+    line-height: 2;
+    color: #3D3D3D;
+  }
+  
+  /* Grid for displaying templates */
+  .templates {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2rem; /* Increased gap for more space between cards */
+    padding: 2rem;
+    justify-items: center;
+    margin-top: 2rem;
+  }
+  
+  /* Individual template card styling */
+  .template-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px; /* Rounded corners for a modern look */
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Slightly larger shadow for better depth */
+    transition: transform 0.3s, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 280px; /* Increased max-width for more space */
+    text-align: center;
+    padding: 15px; /* Padding inside the card */
+  }
+  
+  .template-card:hover {
+    transform: translateY(-12px); /* Slightly larger hover effect */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .template-card-content {
+    height: 220px; /* Increased height for more spacious content */
+    overflow: auto; /* Allow scrolling for larger content */
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+  .template-card h2 {
+    font-size: 18px;
+    color: #333;
+    padding: 10px 0;
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .template-card .template-card-footer {
+    font-size: 14px;
+    color: #888;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .template-card .template-card-footer a {
+    text-decoration: none;
+    color: #ff6347;
+    font-weight: bold;
+  }
+  
+  .template-card .template-card-footer a:hover {
+    color: #ff4500;
+  }
+  

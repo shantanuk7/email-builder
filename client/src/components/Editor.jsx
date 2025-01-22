@@ -60,14 +60,23 @@ function Editor() {
       .join("");
   };
   
-  const generateHTMLContent = (data) => {
-    const fontCDN = `<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">`; // Change to your desired font's CDN link
+  const generateHTMLContent = (data, selectedFontFamily = "Arial") => {
+    const fontCDNs = {
+      Arial: '',
+      Georgia: '',
+      Helvetica: '',
+      "Times New Roman": '',
+      Verdana: '',
+      Roboto: `<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">`,
+      'Open Sans': `<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">`,
+    };
+  
+    const selectedFontCDN = fontCDNs[selectedFontFamily] || fontCDNs["Arial"];
     const bodyStyle = `
       <style>
         body {
           margin: 0;
           padding: 0;
-          font-family: 'Roboto', sans-serif; /* Apply the font to the body */
         }
       </style>
     `;
@@ -75,7 +84,7 @@ function Editor() {
     return `
       <html>
         <head>
-          ${fontCDN}
+          ${selectedFontCDN}
           ${bodyStyle}
         </head>
         <body>
@@ -97,6 +106,7 @@ function Editor() {
       </html>
     `;
   };
+  
   
   
   
