@@ -32,25 +32,28 @@ export default function EditorPane({ data, setData, selectedBlockData, setSelect
     <div className="editor-pane-content">
       {/* Common Fields */}
       <div className="editor-field">
-        <label>Padding (px):</label>
-        <input
-          type="range"
-          min="0"
-          max="50"
-          value={selectedBlockData.style?.padding || 0}
-          onChange={(e) => handleStyleChange("padding", parseInt(e.target.value, 10))}
-        />
-      </div>
-      <div className="editor-field">
-        <label>Margin (px):</label>
-        <input
-          type="range"
-          min="0"
-          max="50"
-          value={selectedBlockData.style?.margin || 0}
-          onChange={(e) => handleStyleChange("margin", parseInt(e.target.value, 10))}
-        />
-      </div>
+      <label>Padding (px):</label>
+      <input
+        type="range"
+        min="0"
+        max="50"
+        value={selectedBlockData.style?.padding || 0}
+        onChange={(e) => handleStyleChange("padding", parseInt(e.target.value, 10))}
+      />
+      <output>{selectedBlockData.style?.padding || 0}</output>
+    </div>
+    <div className="editor-field">
+      <label>Margin (px):</label>
+      <input
+        type="range"
+        min="0"
+        max="50"
+        value={selectedBlockData.style?.margin || 0}
+        onChange={(e) => handleStyleChange("margin", parseInt(e.target.value, 10))}
+      />
+      <output>{selectedBlockData.style?.margin || 0}</output>
+    </div>
+
       <div className="editor-field">
         <label>Background Color:</label>
         <input
@@ -59,6 +62,17 @@ export default function EditorPane({ data, setData, selectedBlockData, setSelect
           onChange={(e) => handleStyleChange("backgroundColor", e.target.value)}
         />
       </div>
+
+      <div className="editor-field">
+        <label>Text Color:</label>
+        <input
+          type="color"
+          value={selectedBlockData.style?.color || "#000000"}
+          onChange={(e) => handleStyleChange("color", e.target.value)}
+        />
+      </div>
+
+
       <div className="editor-field">
         <label>Alignment:</label>
         <select
@@ -86,7 +100,10 @@ export default function EditorPane({ data, setData, selectedBlockData, setSelect
               <option value="Helvetica">Helvetica</option>
               <option value="Times New Roman">Times New Roman</option>
               <option value="Verdana">Verdana</option>
+              <option value="Roboto">Roboto</option>
+              <option value="Open Sans">Open Sans</option>
             </select>
+
           </div>
           <div className="editor-field">
             <label>Font Size (px):</label>
@@ -106,6 +123,34 @@ export default function EditorPane({ data, setData, selectedBlockData, setSelect
               onChange={(e) => handleStyleChange("width", `${e.target.value}%`)}
             />
           </div>
+          <div className="editor-field">
+          <label>Text Style:</label>
+          <div className="toggle-buttons">
+              <button
+                className={selectedBlockData.style?.fontWeight === "bold" ? "active" : ""}
+                onClick={() =>
+                  handleStyleChange(
+                    "fontWeight",
+                    selectedBlockData.style?.fontWeight === "bold" ? "normal" : "bold"
+                  )
+                }
+              >
+                Bold
+              </button>
+              <button
+                className={selectedBlockData.style?.fontStyle === "italic" ? "active" : ""}
+                onClick={() =>
+                  handleStyleChange(
+                    "fontStyle",
+                    selectedBlockData.style?.fontStyle === "italic" ? "normal" : "italic"
+                  )
+                }
+              >
+                Italic
+              </button>
+            </div>
+          </div>
+
           <div className="editor-field">
             <label>Text Decoration:</label>
             <select

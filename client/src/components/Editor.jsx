@@ -61,19 +61,45 @@ function Editor() {
   };
   
   const generateHTMLContent = (data) => {
-    return data.rows
-      .map(
-        (row) =>
-          `<div style="display:flex;">${row.blocks
-            .map((block) =>
-              block.type === "image"
-                ? `<img src="${block.rawContent}" style="${generateStyle(block.style)}" />`
-                : `<div style="${generateStyle(block.style)}">${block.rawContent}</div>`
+    const fontCDN = `<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">`; // Change to your desired font's CDN link
+    const bodyStyle = `
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: 'Roboto', sans-serif; /* Apply the font to the body */
+        }
+      </style>
+    `;
+  
+    return `
+      <html>
+        <head>
+          ${fontCDN}
+          ${bodyStyle}
+        </head>
+        <body>
+          ${data.rows
+            .map(
+              (row) =>
+                `<div>${row.blocks
+                  .map((block) =>
+                    block.type === "image"
+                      ? `<div style="text-align: ${block.style?.textAlign || "left"};">
+                           <img src="${block.rawContent}" style="${generateStyle(block.style)}" />
+                         </div>`
+                      : `<div style="${generateStyle(block.style)}">${block.rawContent}</div>`
+                  )
+                  .join("")}</div>`
             )
-            .join("")}</div>`
-      )
-      .join("");
+            .join("")}
+        </body>
+      </html>
+    `;
   };
+  
+  
+  
   
   
   
@@ -105,33 +131,33 @@ function Editor() {
                               textAlign: block.style.textAlign || "left",
                               fontFamily: block.style.fontFamily || "Arial",
                               fontSize: `${block.style.fontSize || 16}px`,
-                              width: block.style.width || "auto",
+                              width: block.style.width || "100%",
                               textDecoration: block.style.textDecoration || "none",
                             }}
                             
                             
                         />
                 
-                ) : 
-                  block.rawContent !== '' ? (
+                ) :
+                
+                block.rawContent !== '' ? (
+                  <div style={{
+                    display: "flex",
+                    justifyContent: block.style?.textAlign === 'center' ? "center" : block.style?.textAlign === 'right' ? "flex-end" : "flex-start",
+                    alignItems: "center",  // Align vertically if needed
+                  }}>
                     <img
                       src={block.rawContent}
                       alt="Block"
                       style={{
-                        width: block.style?.width ? `${block.style.width}px` : "auto",
+                        width: block.style?.width ? `${block.style.width}px` : "100%",
                         height: block.style?.height ? `${block.style.height}px` : "auto",
                         padding: block.style?.padding ? `${block.style.padding}px` : "0",
-                        margin: block.style?.margin
-                          ? `${block.style.margin}px auto`
-                          : block.style?.textAlign === "center"
-                          ? "0 auto"
-                          : block.style?.textAlign === "left"
-                          ? "0"
-                          : "0 0 0 auto",
+                        margin: block.style?.margin ? `${block.style.margin}px` : "0",
                         borderRadius: block.style?.borderRadius ? `${block.style.borderRadius}px` : "0",
-                        display: "block",
                       }}
                     />
+                  </div>
                   ) : (
                     <InsertImage h="3rem" w="3rem" handleBlockChange={handleBlockChange} blockId={block.id} />
                   )
@@ -145,6 +171,7 @@ function Editor() {
       <div className="editor-controls">
         <div>
             <h3>{selectedBlockTitle === null ? 'Editor Pane' : selectedBlockTitle}</h3>
+            <hr/>
             <EditorPane
               data={data}
               setData={setData}

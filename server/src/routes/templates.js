@@ -22,6 +22,7 @@ const templates = [
               backgroundColor: 'white',
               padding: '10px',
               margin: '5px',
+              textAlign:'left'
             },
           },
           {

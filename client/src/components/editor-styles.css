@@ -31,6 +31,7 @@
 
 .block {
     border-radius: 5px;
+    border:none;
 }
 
 .block.active {
@@ -42,30 +43,39 @@
 .block-content {
     font-size: 16px;
     line-height: 1.5;
+    /* border:none; */
 }
 
 .block-content > input[type=text]{
     width:max-content;
 }
 
-.block-img {
+/* .block-img {
     width: 100%;
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-}
+} */
 
 .editor-controls {
-
-    display: flex;
-    min-width: 20rem;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: #f0f4f8;
-    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+  }
+  
+  .editor-field label {
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .editor-field input[type="color"] {
+    margin-top: 5px;
+    width: 100%;
+    border: none;
+  }
+  
 
 .editor-controls h3 {
     font-size: 18px;
