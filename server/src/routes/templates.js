@@ -16,7 +16,7 @@ const templates = [
             id: 'block-1',
             type: 'image',
             title: 'Logo Image',
-            rawContent: 'https://via.placeholder.com/150',  // Placeholder logo
+            rawContent: '',
             style: {
               color: 'black',
               backgroundColor: 'white',
@@ -70,7 +70,7 @@ const templates = [
             id: 'block-1',
             type: 'image',
             title: 'Product Image',
-            rawContent: 'https://via.placeholder.com/500x250',  // Placeholder product image
+            rawContent: '',  // Placeholder product image
             style: {
               padding: '10px',
               margin: '5px',
@@ -134,7 +134,7 @@ const templates = [
             id: 'block-1',
             type: 'image',
             title: 'Newsletter Logo',
-            rawContent: 'https://via.placeholder.com/150',  // Placeholder logo
+            rawContent: '',
             style: {
               color: 'black',
               backgroundColor: '#f0f0f0',

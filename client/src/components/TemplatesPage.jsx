@@ -76,7 +76,7 @@ function TemplatesPage() {
   };
 
   return (
-    <div className='container'>
+    <div className='template-container'>
       <header>
         <h1>Choose a Template</h1>
       </header>
