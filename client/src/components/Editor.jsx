@@ -54,65 +54,26 @@ function Editor() {
   
 
 
-  const generateHTMLContent = (data) => {
-    const camelToKebab = (str) => str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-  
-    return `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Email Template</title>
-        <style>
-        * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-          }
-
-        </style>
-      </head>
-      <body>
-        ${data.rows
-          .map((row) =>
-            `<div class="row">
-              ${row.blocks
-                .map((block) =>
-                  block.type === 'text'
-                    ? `<p style="${
-                        block.style
-                          ? Object.entries(block.style)
-                              .map(([key, value]) => {
-                                const kebabKey = camelToKebab(key);
-                                const formattedValue =
-                                  typeof value === 'number' ? `${value}px` : value;
-                                return `${kebabKey}: ${formattedValue}`;
-                              })
-                              .join('; ')
-                          : ''
-                      }">${block.rawContent || ' '}</p>`
-                    : `<img src="${block.rawContent}" style="${
-                        block.style
-                          ? Object.entries(block.style)
-                              .map(([key, value]) => {
-                                const kebabKey = camelToKebab(key);
-                                const formattedValue =
-                                  typeof value === 'number' ? `${value}px` : value;
-                                return `${kebabKey}: ${formattedValue}`;
-                              })
-                              .join('; ')
-                          : ''
-                      }" />`
-                )
-                .join('')}
-            </div>`
-          )
-          .join('')}
-      </body>
-      </html>`;
+  const generateStyle = (style) => {
+    return Object.entries(style)
+      .map(([key, value]) => `${key.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)}:${value};`)
+      .join("");
   };
   
+  const generateHTMLContent = (data) => {
+    return data.rows
+      .map(
+        (row) =>
+          `<div style="display:flex;">${row.blocks
+            .map((block) =>
+              block.type === "image"
+                ? `<img src="${block.rawContent}" style="${generateStyle(block.style)}" />`
+                : `<div style="${generateStyle(block.style)}">${block.rawContent}</div>`
+            )
+            .join("")}</div>`
+      )
+      .join("");
+  };
   
   
   
@@ -137,22 +98,44 @@ function Editor() {
                             value={block.rawContent}
                             onChange={(e) => handleBlockChange(block.id, e.target.value)}
                             style={{
-                            fontSize: block.style?.fontSize ? `${block.style.fontSize}px` : '16px',
-                            color: block.style?.color || 'black',
-                            backgroundColor: block.style?.backgroundColor || 'white',
-                            padding:block.style?.padding || '0px',
-                            margin:block.style?.margin || '0px',
-                            fontFamily:block.style?.fontFamily || 'Arial',
-                            border: 'none', // Optional: To make it blend into the design
-                            outline: 'none', // Optional: To remove focus outline
-                            width: '100%', // Optional: Full width of the block
+                              ...block.style,
+                              padding: `${block.style.padding || 0}px`,
+                              margin: `${block.style.margin || 0}px`,
+                              backgroundColor: block.style.backgroundColor || "transparent",
+                              textAlign: block.style.textAlign || "left",
+                              fontFamily: block.style.fontFamily || "Arial",
+                              fontSize: `${block.style.fontSize || 16}px`,
+                              width: block.style.width || "auto",
+                              textDecoration: block.style.textDecoration || "none",
                             }}
+                            
+                            
                         />
                 
-                ) : (
-                    block.rawContent !== '' ? <img src={block.rawContent} alt="Block" className="block-img" /> : <InsertImage h="3rem" w="3rem" handleBlockChange={handleBlockChange} blockId={block.id}/>
-                  
-                )}
+                ) : 
+                  block.rawContent !== '' ? (
+                    <img
+                      src={block.rawContent}
+                      alt="Block"
+                      style={{
+                        width: block.style?.width ? `${block.style.width}px` : "auto",
+                        height: block.style?.height ? `${block.style.height}px` : "auto",
+                        padding: block.style?.padding ? `${block.style.padding}px` : "0",
+                        margin: block.style?.margin
+                          ? `${block.style.margin}px auto`
+                          : block.style?.textAlign === "center"
+                          ? "0 auto"
+                          : block.style?.textAlign === "left"
+                          ? "0"
+                          : "0 0 0 auto",
+                        borderRadius: block.style?.borderRadius ? `${block.style.borderRadius}px` : "0",
+                        display: "block",
+                      }}
+                    />
+                  ) : (
+                    <InsertImage h="3rem" w="3rem" handleBlockChange={handleBlockChange} blockId={block.id} />
+                  )
+                }
               </div>
             ))}
           </div>

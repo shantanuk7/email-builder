@@ -1,4 +1,4 @@
-.editor-pane-container {
+/* .editor-pane-container {
     padding: 15px;
     width: 25rem;
   }
@@ -22,8 +22,51 @@
     border: 1px solid #ccc;
     padding: 10px;
     min-height: 50px;
-    white-space: pre-wrap; /* Ensures the text wraps properly */
+    white-space: pre-wrap;
     outline: none;
     font-family: Arial, sans-serif;
+  }
+   */
+
+   .editor-pane-placeholder {
+    text-align: center;
+    color: #999;
+    font-size: 1.2rem;
+    padding: 20px;
+  }
+  
+  .editor-field {
+    margin-bottom: 15px;
+  }
+  
+  .editor-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .editor-field input[type="number"],
+  .editor-field input[type="range"] {
+    width: 100%;
+  }
+  
+  .alignment-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .alignment-button {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+    transition: background-color 0.2s ease;
+  }
+  
+  .alignment-button.active,
+  .alignment-button:hover {
+    background-color: #007bff;
+    color: white;
   }
   
